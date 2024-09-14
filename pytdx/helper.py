@@ -35,56 +35,7 @@ def get_price(data, pos):
 
 
 def get_volume(ivol):
-    logpoint = ivol >> (8 * 3)
-    hheax = ivol >> (8 * 3);  # [3]
-    hleax = (ivol >> (8 * 2)) & 0xff;  # [2]
-    lheax = (ivol >> 8) & 0xff;  # [1]
-    lleax = ivol & 0xff;  # [0]
-
-    dbl_1 = 1.0
-    dbl_2 = 2.0
-    dbl_128 = 128.0
-
-    dwEcx = logpoint * 2 - 0x7f;
-    dwEdx = logpoint * 2 - 0x86;
-    dwEsi = logpoint * 2 - 0x8e;
-    dwEax = logpoint * 2 - 0x96;
-    if dwEcx < 0:
-        tmpEax = - dwEcx
-    else:
-        tmpEax = dwEcx
-
-    dbl_xmm6 = 0.0
-    dbl_xmm6 = pow(2.0, tmpEax)
-    if dwEcx < 0:
-        dbl_xmm6 = 1.0 / dbl_xmm6
-
-    dbl_xmm4 = 0
-    if hleax > 0x80:
-        tmpdbl_xmm3 = 0.0
-        tmpdbl_xmm1 = 0.0
-        dwtmpeax = dwEdx + 1
-        tmpdbl_xmm3 = pow(2.0, dwtmpeax)
-        dbl_xmm0 = pow(2.0, dwEdx) * 128.0
-        dbl_xmm0 += (hleax & 0x7f) * tmpdbl_xmm3
-        dbl_xmm4 = dbl_xmm0
-
-    else:
-        dbl_xmm0 = 0.0
-        if dwEdx >= 0:
-            dbl_xmm0 = pow(2.0, dwEdx) * hleax
-        else:
-            dbl_xmm0 = (1 / pow(2.0, dwEdx)) * hleax
-        dbl_xmm4 = dbl_xmm0
-
-    dbl_xmm3 = pow(2.0, dwEsi) * lheax
-    dbl_xmm1 = pow(2.0, dwEax) * lleax
-    if hleax & 0x80:
-        dbl_xmm3 *= 2.0
-        dbl_xmm1 *= 2.0
-
-    dbl_ret = dbl_xmm6 + dbl_xmm4 + dbl_xmm3 + dbl_xmm1
-    return dbl_ret
+    return struct.unpack('<f', struct.pack('<I', ivol))[0]
 
 
 def get_datetime(category, buffer, pos):
