@@ -6,14 +6,13 @@ import os
 if __name__ == '__main__':
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
-from pytdx.reader import TdxDailyBarReader, TdxFileNotFoundException, TdxNotAssignVipdocPathException
+from pytdx.reader import TdxDailyBarReader
 from pytdx.reader import TdxMinBarReader
 from pytdx.reader import TdxLCMinBarReader
 from pytdx.reader import TdxExHqDailyBarReader
 from pytdx.reader import GbbqReader
 from pytdx.reader import BlockReader
 from pytdx.reader import CustomerBlockReader
-from pytdx.reader.history_financial_reader import HistoryFinancialReader
 import pandas as pd
 
 # 让pandas 显示全部数据
@@ -54,8 +53,6 @@ def main(input, output, datatype):
         reader = BlockReader()
     elif datatype == 'customblock':
         reader = CustomerBlockReader()
-    elif datatype == 'history_financial' or datatype == 'hf':
-        reader = HistoryFinancialReader()
     else:
         reader = TdxMinBarReader()
 

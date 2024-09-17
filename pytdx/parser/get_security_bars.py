@@ -96,6 +96,10 @@ class GetSecurityBarsCmd(BaseParser):
                 ("datetime", "%d-%02d-%02d %02d:%02d" % (year, month, day, hour, minute))
             ])
             klines.append(kline)
+
+            # 2024-09-17, 末尾多了四个字节，内容不详
+            pos += 4
+
         return klines
 
     def _cal_price1000(self, base_p, diff):

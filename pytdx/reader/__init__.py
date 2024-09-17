@@ -5,7 +5,6 @@ from pytdx.reader.exhq_daily_bar_reader import TdxExHqDailyBarReader
 from pytdx.reader.gbbq_reader import GbbqReader
 from pytdx.reader.block_reader import BlockReader
 from pytdx.reader.block_reader import CustomerBlockReader
-from pytdx.reader.history_financial_reader import HistoryFinancialReader
 
 __all__ = [
     'TdxDailyBarReader',
@@ -17,5 +16,4 @@ __all__ = [
     'GbbqReader',
     'BlockReader',
     'CustomerBlockReader',
-    'HistoryFinancialReader'
 ]
