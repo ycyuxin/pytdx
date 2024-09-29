@@ -97,9 +97,6 @@ class GetSecurityBarsCmd(BaseParser):
             ])
             klines.append(kline)
 
-            # 2024-09-17, 末尾多了四个字节，内容不详
-            pos += 4
-
         return klines
 
     def _cal_price1000(self, base_p, diff):
