@@ -20,10 +20,11 @@ recv: b1cb74000c01086401002d05aa00aa000a006ec73301b28c011e3254a081ad4816d6984d6f
 class GetSecurityBarsCmd(BaseParser):
 
     def setParams(self, category, market, code, start, count):
+        self.code = code
+        self.category = category
+
         if type(code) is six.text_type:
             code = code.encode("utf-8")
-
-        self.category = category
 
         values = (
             0x10c,
@@ -96,6 +97,10 @@ class GetSecurityBarsCmd(BaseParser):
                 ("datetime", "%d-%02d-%02d %02d:%02d" % (year, month, day, hour, minute))
             ])
             klines.append(kline)
+
+            # 对于微盘股指数，末尾多了四个字节，内容不详
+            if self.code == '880823':
+                pos += 4
 
         return klines
 
